@@ -1,8 +1,8 @@
 package me.stoyan.exercises.pt02.example;
 
-import me.stoyan.exercises.pt01.base.LinkedListInterface;
+import me.stoyan.exercises.pt02.base.DoubleLinkedListInterface;
 
-public class LinkedList implements LinkedListInterface {
+public class DoubleLinkedList implements DoubleLinkedListInterface {
 
 	@Override
 	public void addItem(Object value) {

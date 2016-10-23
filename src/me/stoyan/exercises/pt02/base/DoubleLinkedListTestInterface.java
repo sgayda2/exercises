@@ -19,6 +19,34 @@ public abstract class DoubleLinkedListTestInterface<T extends DoubleLinkedListIn
 	public abstract void setup();
 
 	@Test
+	public void setupTest() {
+		assertNotNull("Must override setup and create a new instance of LinkedListInterface", list);
+	}
+
+	public Object[] getObjects(DoubleLinkedListInterface list) {
+		int size = list.getSize();
+		Object[] objects = new Object[size];
+
+		int index = 0;
+		Node current = list.getFirstNode();
+		Node prev = null;
+		while (current != null) {
+			if (index >= objects.length) {
+				assertTrue("list.getSize() was incorrect", false);
+				return new Object[] {};
+			}
+
+			assertEquals(prev, current.previous);
+			objects[index] = current.value;
+			index++;
+			prev = current;
+			current = current.next;
+		}
+
+		return objects;
+	}
+
+	@Test
 	public void testInsert() {
 		Integer value1 = new Integer(1);
 		Integer value2 = new Integer(2);
@@ -34,21 +62,25 @@ public abstract class DoubleLinkedListTestInterface<T extends DoubleLinkedListIn
 
 		assertTrue(list.isEmpty());
 		assertEquals(0, list.getSize());
+		assertArrayEquals(new Object[] {}, getObjects(list));
 
 		assertTrue(list.insertItem(0, value1));
 		assertFalse(list.isEmpty());
 		assertEquals(1, list.getSize());
 		assertEquals(value1, list.getItem(0));
+		assertArrayEquals(new Object[] { value1 }, getObjects(list));
 
 		assertTrue(list.insertItem(0, value2));
 		assertFalse(list.isEmpty());
 		assertEquals(2, list.getSize());
 		assertEquals(value2, list.getItem(0));
 		assertEquals(value1, list.getItem(1));
+		assertArrayEquals(new Object[] { value2, value1 }, getObjects(list));
 
 		assertFalse(list.insertItem(3, value1));
 		assertFalse(list.insertItem(-10, value2));
 		assertFalse(list.insertItem(10, value1));
+		assertArrayEquals(new Object[] { value2, value1 }, getObjects(list));
 
 		assertTrue(list.insertItem(2, value3));
 		assertFalse(list.isEmpty());
@@ -56,6 +88,7 @@ public abstract class DoubleLinkedListTestInterface<T extends DoubleLinkedListIn
 		assertEquals(value2, list.getItem(0));
 		assertEquals(value1, list.getItem(1));
 		assertEquals(value3, list.getItem(2));
+		assertArrayEquals(new Object[] { value2, value1, value3 }, getObjects(list));
 
 		assertTrue(list.insertItem(2, value4));
 		assertFalse(list.isEmpty());
@@ -64,6 +97,7 @@ public abstract class DoubleLinkedListTestInterface<T extends DoubleLinkedListIn
 		assertEquals(value1, list.getItem(1));
 		assertEquals(value4, list.getItem(2));
 		assertEquals(value3, list.getItem(3));
+		assertArrayEquals(new Object[] { value2, value1, value4, value3 }, getObjects(list));
 
 		list.addItem(value5);
 		assertFalse(list.isEmpty());
@@ -73,6 +107,7 @@ public abstract class DoubleLinkedListTestInterface<T extends DoubleLinkedListIn
 		assertEquals(value4, list.getItem(2));
 		assertEquals(value3, list.getItem(3));
 		assertEquals(value5, list.getItem(4));
+		assertArrayEquals(new Object[] { value2, value1, value4, value3, value5 }, getObjects(list));
 
 		assertTrue(list.insertItem(5, value6));
 		assertFalse(list.isEmpty());
@@ -83,6 +118,7 @@ public abstract class DoubleLinkedListTestInterface<T extends DoubleLinkedListIn
 		assertEquals(value3, list.getItem(3));
 		assertEquals(value5, list.getItem(4));
 		assertEquals(value6, list.getItem(5));
+		assertArrayEquals(new Object[] { value2, value1, value4, value3, value5, value6 }, getObjects(list));
 
 		list.addItem(value7);
 		assertFalse(list.isEmpty());
@@ -94,6 +130,7 @@ public abstract class DoubleLinkedListTestInterface<T extends DoubleLinkedListIn
 		assertEquals(value5, list.getItem(4));
 		assertEquals(value6, list.getItem(5));
 		assertEquals(value7, list.getItem(6));
+		assertArrayEquals(new Object[] { value2, value1, value4, value3, value5, value6, value7 }, getObjects(list));
 	}
 
 	@Test
@@ -102,9 +139,12 @@ public abstract class DoubleLinkedListTestInterface<T extends DoubleLinkedListIn
 		assertNull(list.getItem(10));
 		assertNull(list.getItem(1));
 		assertNull(list.getItem(0));
+		assertArrayEquals(new Object[] {}, getObjects(list));
 
 		Object value1 = new Object();
 		list.addItem(value1);
+
+		assertArrayEquals(new Object[] { value1 }, getObjects(list));
 
 		assertNull(list.getItem(-10));
 		assertNull(list.getItem(10));
@@ -126,12 +166,14 @@ public abstract class DoubleLinkedListTestInterface<T extends DoubleLinkedListIn
 		assertFalse(list.isEmpty());
 		assertEquals(1, list.getSize());
 		assertEquals(value1, list.getItem(0));
+		assertArrayEquals(new Object[] { value1 }, getObjects(list));
 
 		list.addItem(value2);
 		assertFalse(list.isEmpty());
 		assertEquals(2, list.getSize());
 		assertEquals(value1, list.getItem(0));
 		assertEquals(value2, list.getItem(1));
+		assertArrayEquals(new Object[] { value1, value2 }, getObjects(list));
 
 		list.addItem(value3);
 		assertFalse(list.isEmpty());
@@ -139,6 +181,7 @@ public abstract class DoubleLinkedListTestInterface<T extends DoubleLinkedListIn
 		assertEquals(value1, list.getItem(0));
 		assertEquals(value2, list.getItem(1));
 		assertEquals(value3, list.getItem(2));
+		assertArrayEquals(new Object[] { value1, value2, value3 }, getObjects(list));
 
 		list.addItem(value4);
 		assertFalse(list.isEmpty());
@@ -147,6 +190,7 @@ public abstract class DoubleLinkedListTestInterface<T extends DoubleLinkedListIn
 		assertEquals(value2, list.getItem(1));
 		assertEquals(value3, list.getItem(2));
 		assertEquals(value4, list.getItem(3));
+		assertArrayEquals(new Object[] { value1, value2, value3, value4 }, getObjects(list));
 	}
 
 	@Test
@@ -166,6 +210,7 @@ public abstract class DoubleLinkedListTestInterface<T extends DoubleLinkedListIn
 		list.addItem(value2);
 		list.addItem(value3);
 		list.addItem(value4);
+		assertArrayEquals(new Object[] { value1, value2, value3, value4 }, getObjects(list));
 
 		assertFalse(list.isEmpty());
 		assertEquals(4, list.getSize());
@@ -174,6 +219,7 @@ public abstract class DoubleLinkedListTestInterface<T extends DoubleLinkedListIn
 		assertNull(list.removeItem(10));
 		assertNull(list.removeItem(4));
 		assertNull(list.removeItem(5));
+		assertArrayEquals(new Object[] { value1, value2, value3, value4 }, getObjects(list));
 
 		assertEquals(value1, list.removeItem(0));
 		assertFalse(list.isEmpty());
@@ -183,6 +229,7 @@ public abstract class DoubleLinkedListTestInterface<T extends DoubleLinkedListIn
 		assertEquals(value4, list.getItem(2));
 		assertNull(list.getItem(3));
 		assertNull(list.getItem(4));
+		assertArrayEquals(new Object[] { value2, value3, value4 }, getObjects(list));
 
 		assertEquals(value3, list.removeItem(1));
 		assertFalse(list.isEmpty());
@@ -192,6 +239,7 @@ public abstract class DoubleLinkedListTestInterface<T extends DoubleLinkedListIn
 		assertNull(list.getItem(2));
 		assertNull(list.getItem(3));
 		assertNull(list.getItem(4));
+		assertArrayEquals(new Object[] { value2, value4 }, getObjects(list));
 
 		assertEquals(value2, list.removeItem(0));
 		assertFalse(list.isEmpty());
@@ -201,6 +249,7 @@ public abstract class DoubleLinkedListTestInterface<T extends DoubleLinkedListIn
 		assertNull(list.getItem(2));
 		assertNull(list.getItem(3));
 		assertNull(list.getItem(4));
+		assertArrayEquals(new Object[] { value4 }, getObjects(list));
 
 		list.addItem(value5);
 		assertFalse(list.isEmpty());
@@ -210,6 +259,7 @@ public abstract class DoubleLinkedListTestInterface<T extends DoubleLinkedListIn
 		assertNull(list.getItem(2));
 		assertNull(list.getItem(3));
 		assertNull(list.getItem(4));
+		assertArrayEquals(new Object[] { value4, value5 }, getObjects(list));
 
 		assertEquals(value4, list.removeItem(0));
 		assertFalse(list.isEmpty());
@@ -219,6 +269,7 @@ public abstract class DoubleLinkedListTestInterface<T extends DoubleLinkedListIn
 		assertNull(list.getItem(2));
 		assertNull(list.getItem(3));
 		assertNull(list.getItem(4));
+		assertArrayEquals(new Object[] { value5 }, getObjects(list));
 
 		assertEquals(value5, list.removeItem(0));
 		assertTrue(list.isEmpty());
@@ -228,6 +279,7 @@ public abstract class DoubleLinkedListTestInterface<T extends DoubleLinkedListIn
 		assertNull(list.getItem(2));
 		assertNull(list.getItem(3));
 		assertNull(list.getItem(4));
+		assertArrayEquals(new Object[] {}, getObjects(list));
 
 		list.addItem(value6);
 		assertFalse(list.isEmpty());
@@ -237,5 +289,6 @@ public abstract class DoubleLinkedListTestInterface<T extends DoubleLinkedListIn
 		assertNull(list.getItem(2));
 		assertNull(list.getItem(3));
 		assertNull(list.getItem(4));
+		assertArrayEquals(new Object[] { value6 }, getObjects(list));
 	}
 }

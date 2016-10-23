@@ -1,6 +1,7 @@
 package me.stoyan.exercises.pt02.example;
 
 import me.stoyan.exercises.pt02.base.DoubleLinkedListInterface;
+import me.stoyan.exercises.pt02.base.Node;
 
 public class DoubleLinkedList implements DoubleLinkedListInterface {
 
@@ -37,5 +38,11 @@ public class DoubleLinkedList implements DoubleLinkedListInterface {
 	public int getSize() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public Node getFirstNode() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

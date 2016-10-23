@@ -1,5 +1,7 @@
 package me.stoyan.exercises.pt02.base;
 
+import me.stoyan.exercises.pt02.base.Node;
+
 public interface DoubleLinkedListInterface {
 
 	public boolean insertItem(int index, Object value);
@@ -13,4 +15,7 @@ public interface DoubleLinkedListInterface {
 	public boolean isEmpty();
 
 	public int getSize();
+	
+	// For testing only
+	public Node getFirstNode();
 }

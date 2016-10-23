@@ -31,7 +31,8 @@ public abstract class LinkedListTestInterface<T extends LinkedListInterface> {
 		Node current = list.getFirstNode();
 		while (current != null) {
 			if (index >= objects.length) {
-				assertTrue("list.size was incorrect", false);
+				assertTrue("list.getSize() was incorrect", false);
+				return new Object[] {};
 			}
 
 			objects[index] = current.value;

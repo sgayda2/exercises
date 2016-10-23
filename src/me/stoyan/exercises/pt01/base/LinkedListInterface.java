@@ -13,4 +13,7 @@ public interface LinkedListInterface {
 	public boolean isEmpty();
 
 	public int getSize();
+	
+	// For testing only
+	public Node getFirstNode();
 }

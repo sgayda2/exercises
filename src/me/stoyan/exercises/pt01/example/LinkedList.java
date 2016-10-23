@@ -1,6 +1,7 @@
 package me.stoyan.exercises.pt01.example;
 
 import me.stoyan.exercises.pt01.base.LinkedListInterface;
+import me.stoyan.exercises.pt01.base.Node;
 
 public class LinkedList implements LinkedListInterface {
 
@@ -37,5 +38,11 @@ public class LinkedList implements LinkedListInterface {
 	public int getSize() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public Node getFirstNode() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

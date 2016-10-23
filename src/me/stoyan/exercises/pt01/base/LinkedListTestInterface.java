@@ -20,13 +20,13 @@ public abstract class LinkedListTestInterface<T extends LinkedListInterface> {
 
 	@Test
 	public void testInsert() {
-		Object value1 = new Object();
-		Object value2 = new Object();
-		Object value3 = new Object();
-		Object value4 = new Object();
-		Object value5 = new Object();
-		Object value6 = new Object();
-		Object value7 = new Object();
+		Integer value1 = new Integer(1);
+		Integer value2 = new Integer(2);
+		Integer value3 = new Integer(3);
+		Integer value4 = new Integer(4);
+		Integer value5 = new Integer(5);
+		Integer value6 = new Integer(6);
+		Integer value7 = new Integer(7);
 
 		assertFalse(list.insertItem(1, value1));
 		assertFalse(list.insertItem(-10, value2));

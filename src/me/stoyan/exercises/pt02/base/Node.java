@@ -5,6 +5,12 @@ package me.stoyan.exercises.pt02.base;
  */
 public final class Node {
 
+	public Node next;
+
+	public Node previous;
+
+	public Object value;
+
 	public Node(Object value) {
 		this.value = value;
 	}
@@ -14,8 +20,4 @@ public final class Node {
 		this.next = next;
 		this.previous = previous;
 	}
-
-	public Node next;
-	public Node previous;
-	public Object value;
 }

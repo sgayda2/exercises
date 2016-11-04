@@ -14,21 +14,21 @@ public class ArrayList implements ArrayListInterface {
 	}
 
 	@Override
-	public boolean insertItem(int index, Object value) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
 	public Object getItem(int index) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Object removeItem(int index) {
+	public int getSize() {
 		// TODO Auto-generated method stub
-		return null;
+		return 0;
+	}
+
+	@Override
+	public boolean insertItem(int index, Object value) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	@Override
@@ -38,8 +38,14 @@ public class ArrayList implements ArrayListInterface {
 	}
 
 	@Override
-	public int getSize() {
+	public Object removeItem(int index) {
 		// TODO Auto-generated method stub
-		return 0;
+		return null;
+	}
+
+	@Override
+	public boolean setItem(int index, Object value) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

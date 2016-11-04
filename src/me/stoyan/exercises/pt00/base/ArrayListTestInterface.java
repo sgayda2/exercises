@@ -1,12 +1,14 @@
 package me.stoyan.exercises.pt00.base;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
 public abstract class ArrayListTestInterface<T extends ArrayListInterface> {
-
-	public abstract T createNewList(int capacity);
 
 	private void assertEmpty(T list) {
 		assertNotNull(list);
@@ -15,11 +17,70 @@ public abstract class ArrayListTestInterface<T extends ArrayListInterface> {
 		assertNull(list.getItem(0));
 	}
 
+	public abstract T createNewList(int capacity);
+
 	@Test
 	public void setupTest() {
 		assertNull(createNewList(-10));
 		assertEmpty(createNewList(0));
 		assertEmpty(createNewList(10));
+	}
+
+	@Test
+	public void testAdd() {
+		T list = createNewList(2);
+
+		assertTrue(list.isEmpty());
+		assertEquals(0, list.getSize());
+
+		Integer value1 = new Integer(1);
+		Integer value2 = new Integer(2);
+		Integer value3 = new Integer(3);
+		Integer value4 = new Integer(4);
+
+		list.addItem(value1);
+		assertFalse(list.isEmpty());
+		assertEquals(1, list.getSize());
+		assertEquals(value1, list.getItem(0));
+
+		list.addItem(value2);
+		assertFalse(list.isEmpty());
+		assertEquals(2, list.getSize());
+		assertEquals(value1, list.getItem(0));
+		assertEquals(value2, list.getItem(1));
+
+		list.addItem(value3);
+		assertFalse(list.isEmpty());
+		assertEquals(3, list.getSize());
+		assertEquals(value1, list.getItem(0));
+		assertEquals(value2, list.getItem(1));
+		assertEquals(value3, list.getItem(2));
+
+		list.addItem(value4);
+		assertFalse(list.isEmpty());
+		assertEquals(4, list.getSize());
+		assertEquals(value1, list.getItem(0));
+		assertEquals(value2, list.getItem(1));
+		assertEquals(value3, list.getItem(2));
+		assertEquals(value4, list.getItem(3));
+	}
+
+	@Test
+	public void testGet() {
+		T list = createNewList(2);
+
+		assertNull(list.getItem(-10));
+		assertNull(list.getItem(10));
+		assertNull(list.getItem(1));
+		assertNull(list.getItem(0));
+
+		Object value1 = new Object();
+		list.addItem(value1);
+
+		assertNull(list.getItem(-10));
+		assertNull(list.getItem(10));
+		assertNull(list.getItem(1));
+		assertEquals(value1, list.getItem(0));
 	}
 
 	@Test
@@ -103,66 +164,9 @@ public abstract class ArrayListTestInterface<T extends ArrayListInterface> {
 	}
 
 	@Test
-	public void testGet() {
-		T list = createNewList(2);
-		
-		assertNull(list.getItem(-10));
-		assertNull(list.getItem(10));
-		assertNull(list.getItem(1));
-		assertNull(list.getItem(0));
-
-		Object value1 = new Object();
-		list.addItem(value1);
-
-		assertNull(list.getItem(-10));
-		assertNull(list.getItem(10));
-		assertNull(list.getItem(1));
-		assertEquals(value1, list.getItem(0));
-	}
-
-	@Test
-	public void testAdd() {
-		T list = createNewList(2);
-		
-		assertTrue(list.isEmpty());
-		assertEquals(0, list.getSize());
-
-		Integer value1 = new Integer(1);
-		Integer value2 = new Integer(2);
-		Integer value3 = new Integer(3);
-		Integer value4 = new Integer(4);
-
-		list.addItem(value1);
-		assertFalse(list.isEmpty());
-		assertEquals(1, list.getSize());
-		assertEquals(value1, list.getItem(0));
-
-		list.addItem(value2);
-		assertFalse(list.isEmpty());
-		assertEquals(2, list.getSize());
-		assertEquals(value1, list.getItem(0));
-		assertEquals(value2, list.getItem(1));
-
-		list.addItem(value3);
-		assertFalse(list.isEmpty());
-		assertEquals(3, list.getSize());
-		assertEquals(value1, list.getItem(0));
-		assertEquals(value2, list.getItem(1));
-		assertEquals(value3, list.getItem(2));
-
-		list.addItem(value4);
-		assertFalse(list.isEmpty());
-		assertEquals(4, list.getSize());
-		assertEquals(value1, list.getItem(0));
-		assertEquals(value2, list.getItem(1));
-		assertEquals(value3, list.getItem(2));
-		assertEquals(value4, list.getItem(3));
-	}
-
-	@Test
 	public void testRemove() {
 		T list = createNewList(2);
-		
+
 		Object value1 = new Object();
 		Object value2 = new Object();
 		Object value3 = new Object();
@@ -249,5 +253,49 @@ public abstract class ArrayListTestInterface<T extends ArrayListInterface> {
 		assertNull(list.getItem(2));
 		assertNull(list.getItem(3));
 		assertNull(list.getItem(4));
+	}
+
+	@Test
+	public void testSetValue() {
+		T list = createNewList(2);
+
+		Integer value1 = new Integer(1);
+		Integer value2 = new Integer(2);
+		Integer value3 = new Integer(3);
+
+		assertFalse(list.setItem(-12, value1));
+		assertEquals(0, list.getSize());
+		assertTrue(list.isEmpty());
+
+		assertFalse(list.setItem(2, value1));
+		assertEquals(0, list.getSize());
+		assertTrue(list.isEmpty());
+
+		assertFalse(list.setItem(3, value1));
+		assertEquals(0, list.getSize());
+		assertTrue(list.isEmpty());
+
+		list.addItem(value1);
+		list.addItem(value2);
+		assertEquals(2, list.getSize());
+		assertFalse(list.isEmpty());
+
+		assertFalse(list.setItem(-12, value1));
+		assertEquals(2, list.getSize());
+		assertFalse(list.isEmpty());
+
+		assertFalse(list.setItem(2, value1));
+		assertEquals(2, list.getSize());
+		assertFalse(list.isEmpty());
+
+		assertFalse(list.setItem(3, value1));
+		assertEquals(2, list.getSize());
+		assertFalse(list.isEmpty());
+
+		assertTrue(list.setItem(1, value3));
+		assertEquals(value1, list.getItem(0));
+		assertEquals(value3, list.getItem(1));
+		assertEquals(2, list.getSize());
+		assertFalse(list.isEmpty());
 	}
 }

@@ -11,9 +11,9 @@ public class DoubleLinkedList implements DoubleLinkedListInterface {
 	}
 
 	@Override
-	public boolean insertItem(int index, Object value) {
+	public Node getFirstNode() {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
 	@Override
@@ -23,9 +23,15 @@ public class DoubleLinkedList implements DoubleLinkedListInterface {
 	}
 
 	@Override
-	public Object removeItem(int index) {
+	public int getSize() {
 		// TODO Auto-generated method stub
-		return null;
+		return 0;
+	}
+
+	@Override
+	public boolean insertItem(int index, Object value) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	@Override
@@ -35,14 +41,13 @@ public class DoubleLinkedList implements DoubleLinkedListInterface {
 	}
 
 	@Override
-	public int getSize() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public Node getFirstNode() {
+	public Object removeItem(int index) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public boolean setItem(int index, Object value) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }
